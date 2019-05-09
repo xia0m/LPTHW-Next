@@ -109,6 +109,21 @@ class SingleLinkedList(object):
             count += 1
         return node.value
 
+    def insert(self, value, pos):
+        """Insert a node at given postion, if position greater than size,
+        insert at the end"""
+        if pos == 0:
+            self.shift(value)
+            return
+        count = 1
+        node = self.begin
+        while pos > count and node.next:
+            count += 1
+            node = node.next
+        temp = node.next
+        node.next = SingleLinkedListNode(value, None)
+        node.next.next = temp
+
     def dump(self, mark):
         """Debugging function that dumps the contents of the list."""
         print(mark)
