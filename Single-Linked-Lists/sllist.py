@@ -51,15 +51,39 @@ class SingleLinkedList(object):
 
     def unshift(self):
         """Removes the first item and returns it."""
+        if self.begin is None:
+            return None
+        result = self.begin.value
+        self.begin = self.begin.next
+        return result
 
     def remove(self, obj):
         """Finds a matching item and removes it from the list"""
+        if self.begin is None:
+            raise Exception("List is Empty")
+        if self.begin.value == obj:
+            self.begin = self.begin.next
+            return 0
+        node = self.begin
+        index = 1
+        while node.next:
+            if node.next.value == obj:
+                node.next = node.next.next
+                return index
+            node = node.next
+            index += 1
+        raise Exception("Item not found")
 
     def first(self):
         """Returns a *reference* to the first item, does not remove"""
+        return self.begin.value
 
     def last(self):
         """Returns a reference to the last item, does not remove"""
+        node = self.begin
+        while node.next:
+            node = node.next
+        return node.value
 
     def count(self):
         """Counts the number of elements in the list."""
@@ -74,9 +98,21 @@ class SingleLinkedList(object):
 
     def get(self, index):
         """Get the value at index."""
+        if self.begin is None:
+            return None
+        if index+1 > self.count():
+            return None
+        count = 0
+        node = self.begin
+        while index > count and node.next:
+            node = node.next
+            count += 1
+        return node.value
 
     def dump(self, mark):
         """Debugging function that dumps the contents of the list."""
+        print(mark)
+        print(self.to_list())
 
     def to_list(self):
         if self.begin is None:
