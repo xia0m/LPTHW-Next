@@ -20,6 +20,7 @@ class DoubleLinkedList(object):
         """Appedns a new value on the end of the list."""
         if self.head is None:
             self.head = DoubleLinkedListNode(obj, None, None)
+            self.end = self.head
             return
         node = self.head
         while node.next:
@@ -29,6 +30,18 @@ class DoubleLinkedList(object):
 
     def pop(self):
         """Removes the last item and return it"""
+        if self.head is None or self.end is None:
+            return None
+        if self.head == self.end:
+            result = self.head.value
+            self.head = None
+            self.end = None
+            return result
+        result = self.end.value
+        temp = self.end.prev
+        temp.next = None
+        self.end = temp
+        return result
 
     def shift(self, obj):
         """Actually just another name for push."""
@@ -61,4 +74,7 @@ class DoubleLinkedList(object):
 dlist = DoubleLinkedList()
 dlist.push('a')
 dlist.push('b')
-print(dlist.end)
+dlist.push('c')
+print(dlist.pop())
+print(dlist.pop())
+print(dlist.head)
