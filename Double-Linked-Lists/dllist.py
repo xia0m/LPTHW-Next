@@ -45,12 +45,24 @@ class DoubleLinkedList(object):
 
     def shift(self, obj):
         """Actually just another name for push."""
+        if self.head is None:
+            self.head = DoubleLinkedListNode(obj, None, None)
+            self.end = self.head
+            return
+        if self.head == self.end:
+            self.head = DoubleLinkedListNode(obj, self.end, None)
+            self.end.prev = self.head
+            return
+        temp = self.head.next
+        self.head = DoubleLinkedListNode(obj, self.head, None)
+        temp.prev = self.head
 
     def unshift(self):
         """Removes the first itme (from begin) and returns it"""
 
     def detach_node(self, node):
-        """"""
+        """It should take a node, and detach it from the list, 
+        whether the node is at the front, end, or in the middle."""
 
     def remove(self, obj):
         """Finds a matching item and removes it from the list"""
@@ -72,9 +84,11 @@ class DoubleLinkedList(object):
 
 
 dlist = DoubleLinkedList()
-dlist.push('a')
-dlist.push('b')
-dlist.push('c')
-print(dlist.pop())
-print(dlist.pop())
+# dlist.push('a')
+# dlist.push('b')
+# dlist.push('c')
+dlist.shift('d')
+dlist.shift('z')
+# print(dlist.pop())
+# print(dlist.pop())
 print(dlist.head)
