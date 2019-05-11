@@ -59,6 +59,16 @@ class DoubleLinkedList(object):
 
     def unshift(self):
         """Removes the first itme (from begin) and returns it"""
+        if self.head is None:
+            return None
+        if self.head == self.end:
+            result = self.head.value
+            self.head = None
+            self.end = None
+            return result
+        temp = self.head.next
+        self.head = temp
+        self.head.prev = None
 
     def detach_node(self, node):
         """It should take a node, and detach it from the list, 
@@ -89,6 +99,7 @@ dlist = DoubleLinkedList()
 # dlist.push('c')
 dlist.shift('d')
 dlist.shift('z')
+dlist.unshift()
 # print(dlist.pop())
 # print(dlist.pop())
 print(dlist.head)
