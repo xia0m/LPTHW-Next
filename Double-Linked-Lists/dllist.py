@@ -89,6 +89,14 @@ class DoubleLinkedList(object):
 
     def remove(self, obj):
         """Finds a matching item and removes it from the list"""
+        if self.head is None:
+            return None
+
+        node = self.head
+        while node:
+            if node.value == obj:
+                self.detach_node(node)
+            node = node.next
 
     def first(self):
         """Return a *reference* to the first item, does not remove."""
@@ -112,7 +120,8 @@ dlist.push('b')
 dlist.push('c')
 # dlist.shift('d')
 # dlist.shift('z')
-dlist.detach_node(dlist.head.next)
+# dlist.detach_node(dlist.head.next)
+dlist.remove('a')
 # print(dlist.pop())
 # print(dlist.pop())
-print(dlist.head.next)
+print(dlist.head)
