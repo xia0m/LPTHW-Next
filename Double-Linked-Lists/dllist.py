@@ -73,6 +73,19 @@ class DoubleLinkedList(object):
     def detach_node(self, node):
         """It should take a node, and detach it from the list, 
         whether the node is at the front, end, or in the middle."""
+        if self.head == node:
+            self.unshift()
+            return
+        if self.end == node:
+            self.pop()
+            return
+        temp_node = self.head
+        while temp_node.next:
+            if temp_node.next == node:
+                temp = temp_node.next.next
+                temp_node.next = temp
+                temp.prev = temp_node
+            temp_node = temp_node.next
 
     def remove(self, obj):
         """Finds a matching item and removes it from the list"""
@@ -94,12 +107,12 @@ class DoubleLinkedList(object):
 
 
 dlist = DoubleLinkedList()
-# dlist.push('a')
-# dlist.push('b')
-# dlist.push('c')
-dlist.shift('d')
-dlist.shift('z')
-dlist.unshift()
+dlist.push('a')
+dlist.push('b')
+dlist.push('c')
+# dlist.shift('d')
+# dlist.shift('z')
+dlist.detach_node(dlist.head.next)
 # print(dlist.pop())
 # print(dlist.pop())
-print(dlist.head)
+print(dlist.head.next)
