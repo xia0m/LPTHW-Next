@@ -1,15 +1,15 @@
-# list version
+# # list version
 
 
 def bubble_sort(a_list):
-    for passnum in range(len(a_list)-1, 0, -1):
-        for i in range(passnum):
-            if a_list[i] > a_list[i+1]:
-                temp = a_list[i]
-                a_list[i] = a_list[i+1]
-                a_list[i+1] = temp
+    for _ in range(len(a_list)):
+        for inner_index in range(len(a_list)-1):
+            if a_list[inner_index] > a_list[inner_index+1]:
+                temp = a_list[inner_index]
+                a_list[inner_index] = a_list[inner_index+1]
+                a_list[inner_index+1] = temp
 
 
-a_list = [7, 4, 8, 3, 2, 3, 2, 7, 9, 2, 2, 1, 4, 8]
+a_list = [5, 4, 3, 2, 1]
 bubble_sort(a_list)
 print(a_list)
