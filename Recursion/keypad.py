@@ -33,4 +33,25 @@ def keypad(num):
     return result
 
 
-print(keypad(23))
+def test_keypad(input, expected_output):
+    if sorted(keypad(input)) == expected_output:
+        print("Yay. We got it right.")
+    else:
+        print("Oops! That was incorrect.")
+
+
+input = 23
+expected_output = sorted(
+    ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"])
+test_keypad(input, expected_output)
+
+
+input = 32
+expected_output = sorted(
+    ["da", "db", "dc", "ea", "eb", "ec", "fa", "fb", "fc"])
+test_keypad(input, expected_output)
+
+input = 354
+expected_output = sorted(["djg", "ejg", "fjg", "dkg", "ekg", "fkg", "dlg", "elg", "flg", "djh", "ejh", "fjh",
+                          "dkh", "ekh", "fkh", "dlh", "elh", "flh", "dji", "eji", "fji", "dki", "eki", "fki", "dli", "eli", "fli"])
+test_keypad(input, expected_output)
