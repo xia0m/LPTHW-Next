@@ -52,13 +52,13 @@ def pre_order(tree):
     visit_order = list()
     if tree is None:
         return []
-    node = tree.get_root()
-    visit_order.append(node.get_value())
+    root = tree.get_root()
+    visit_order.append(root.get_value())
 
-    if node.has_left_child():
-        pre_order_traverse(node.get_left_child(), visit_order)
-    if node.has_right_child():
-        pre_order_traverse(node.get_right_child(), visit_order)
+    if root.has_left_child():
+        pre_order_traverse(root.get_left_child(), visit_order)
+    if root.has_right_child():
+        pre_order_traverse(root.get_right_child(), visit_order)
 
     return visit_order
 
