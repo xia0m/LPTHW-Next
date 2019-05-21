@@ -108,7 +108,7 @@ class Tree():
     can use a for loop (try one or both ways)
     """
 
-    def insert_with_loop(self, new_value):
+    def insert(self, new_value):
         if self.root is None:
             self.root = Node(new_value)
             return
@@ -140,16 +140,7 @@ class Tree():
             return
 
         def insert_with_recursion_traverse(node):
-            # if node.get_left_child() is None:
-            #     node.set_left_child(value)
-            #     return
-            # if node.get_right_child() is None:
-            #     node.set_right_child(value)
-            #     return
-            # if node.get_value() < value:
-            #     insert_with_recursion_traverse(node.get_left_child())
-            # if node.get_value() > value:
-            #     insert_with_recursion_traverse(node.get_right_child())
+
             if value < node.get_value():
                 if node.has_left_child():
                     insert_with_recursion_traverse(node.get_left_child())
@@ -164,6 +155,22 @@ class Tree():
                 return
 
         insert_with_recursion_traverse(self.root)
+    """
+    search function
+    """
+
+    def search(self, value):
+        if self.root is None:
+            return False
+        node = self.root
+        while node:
+            if value == node.get_value():
+                return True
+            elif value < node.get_value():
+                node = node.get_left_child()
+            else:
+                node = node.get_right_child()
+        return False
 
     def __repr__(self):
         level = 0
@@ -208,10 +215,21 @@ class Tree():
 # tree.insert_with_loop(5)  # insert duplicate
 # print(tree)
 
+# tree = Tree()
+# tree.insert_with_recursion(5)
+# tree.insert_with_recursion(6)
+# tree.insert_with_recursion(4)
+# tree.insert_with_recursion(2)
+# tree.insert_with_recursion(5)  # insert duplicate
+# print(tree)
 tree = Tree()
-tree.insert_with_recursion(5)
-tree.insert_with_recursion(6)
-tree.insert_with_recursion(4)
-tree.insert_with_recursion(2)
-tree.insert_with_recursion(5)  # insert duplicate
+tree.insert(5)
+tree.insert(6)
+tree.insert(4)
+tree.insert(2)
+
+print(f"""
+search for 8: {tree.search(8)}
+search for 2: {tree.search(2)}
+""")
 print(tree)
