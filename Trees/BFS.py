@@ -50,6 +50,13 @@ class Tree():
     def get_root(self):
         return self.root
 
+    def __repr__(self):
+        level = 0
+        temp = level + 1
+        node = self.root
+        while node and temp != level:
+            print(node)
+
 
 tree = Tree("apple")
 tree.get_root().set_left_child(Node("banana"))
@@ -95,6 +102,7 @@ def bfs(tree):
             q.enq(node.get_left_child())
         if node.has_right_child():
             q.enq(node.get_right_child())
+
     return visited_node
 
 
