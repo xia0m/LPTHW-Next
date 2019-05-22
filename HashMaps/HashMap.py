@@ -3,7 +3,7 @@ class LinkedListNode:
     def __init__(self, key, value):
         self.key = key
         self.value = value
-        self.next = Non
+        self.next = None
 
 
 class HashMap:
@@ -70,6 +70,42 @@ class HashMap:
                 self.put(key, value)
                 head = head.next
 
+    def size(self):
+        return self.num_entries
 
-h = HashMap()
-print(h.get_bucket_index('ace'))
+    def delete(self, key):
+        bucket_index = self.get_bucket_index(key)
+        head = self.bucket_array[bucket_index]
+        previous = None
+        while head:
+            if head.key == key:
+                if previous is None:
+                    self.bucket_array[bucket_index] = head.next
+                else:
+                    previous.next = head.next
+                self.num_entries -= 1
+                return
+            else:
+                previous = head
+                head = head.next
+
+
+hash_map = HashMap(7)
+
+hash_map.put("one", 1)
+hash_map.put("two", 2)
+hash_map.put("three", 3)
+hash_map.put("neo", 11)
+
+print("size: {}".format(hash_map.size()))
+
+
+print("one: {}".format(hash_map.get("one")))
+print("neo: {}".format(hash_map.get("neo")))
+print("three: {}".format(hash_map.get("three")))
+print("size: {}".format(hash_map.size()))
+
+hash_map.delete("one")
+
+print(hash_map.get("one"))
+print(hash_map.size())
