@@ -14,13 +14,17 @@ class HashMap:
         return self.get_hash_code(key)
 
     def get_hash_code(self, key):
+        key = str(key)
         hash_code = 0
         current_coefficient = 1
+        num_bucket = len(self.bucket_array)
         for i in key:
             hash_code += ord(i)*current_coefficient
+            hash_code = hash_code % num_bucket
             current_coefficient *= self.p
-        return hash_code
+            current_coefficient = current_coefficient % num_bucket
+        return hash_code % num_bucket
 
 
 h = HashMap()
-print(h.get_bucket_index('abcd'))
+print(h.get_bucket_index('ace'))
