@@ -1,3 +1,11 @@
+class LinkedListNode:
+
+    def __init__(self, key, value):
+        self.key = key
+        self.value = value
+        self.next = None
+
+
 class HashMap:
     def __init__(self, initial_size=10):
         self.bucket_array = [None for _ in range(initial_size)]
@@ -5,7 +13,18 @@ class HashMap:
         self.num_entries = 0
 
     def put(self, key, value):
-        pass
+        bucket_index = self.get_bucket_index(key)
+        head = self.bucket_array[bucket_index]
+        new_node = LinkedListNode(key, value)
+        while head:
+            if head.key == key:
+                head.value = value
+                return
+            head = head.next
+        head = self.bucket_array[bucket_index]
+        new_node.next = head
+        self.bucket_array[bucket_index] = new_node
+        self.num_entries += 1
 
     def get(self, key):
         pass
