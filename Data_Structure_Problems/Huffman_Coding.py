@@ -37,6 +37,35 @@ def huffman_encoding(data):
         #     continue
         freq_list.sort(key=lambda x: x[0])
     # print(len(freq_list))
+    huffman_tree = freq_list[0][1]
+    for key in char_dict:
+        char_dict[key] = get_binary_value(key, huffman_tree)
+    print(char_dict)
+    encoded_data = ""
+    for character in data:
+        encoded_data += char_dict[character]
+    print(encoded_data)
+
+
+def get_binary_value(key, tree):
+    binary_value = get_binary_value_helper(tree, key)
+    return binary_value[::-1]
+
+
+def get_binary_value_helper(tree, key):
+    if tree is None:
+        return None
+    elif tree.value == key:
+        return ""
+    left_answer = get_binary_value_helper(tree.left, key)
+    if left_answer is not None:
+        left_answer += '0'
+        return left_answer
+    right_answer = get_binary_value_helper(tree.right, key)
+    if right_answer is not None:
+        right_answer += '1'
+        return right_answer
+    return None
 
 
 def count_char(data):
