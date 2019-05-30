@@ -42,6 +42,34 @@ def find_files(suffix, path):
     return path_list
 
 
+# Test Case 1
 print(find_files(".c", "testdir"))
 print(find_files(".h", "testdir"))
 print(find_files(".gitkeep", "testdir"))
+
+# Test Case 2, None input
+try:
+    print(find_files(None, "testdir"))
+except Exception:
+    print("End of file arg cannot be None")
+
+try:
+    print(find_files(1, "testdir"))
+except Exception:
+    print("End of file arg cannot be number")
+
+try:
+    print(find_files(".c", None))
+except Exception:
+    print("File path cannot be None")
+
+
+# Test Case 3
+try:
+    print(find_files(' ', "testdir"))
+except Exception:
+    print("End of file arg is invalid")
+try:
+    print(find_files('', "testdir"))
+except Exception:
+    print("End of file arg is invalid")

@@ -11,6 +11,12 @@ class Node(object):
 
 
 def huffman_encoding(data):
+    if data is None:
+        print("the data cannot be None")
+        return None, None
+    elif data == "":
+        print("empty list!")
+        return "", None
     char_dict = count_char(data)
     freq_list = tuple_list(char_dict)
     build_huffman_tree(freq_list)
@@ -114,6 +120,7 @@ def huffman_decoding(data, tree):
 if __name__ == "__main__":
     codes = {}
 
+    # Test Case 1
     a_great_sentence = "The bird is the word"
 
     print("The size of the data is: {}\n".format(
@@ -131,3 +138,31 @@ if __name__ == "__main__":
     print("The size of the decoded data is: {}\n".format(
         sys.getsizeof(decoded_data)))
     print("The content of the encoded data is: {}\n".format(decoded_data))
+    # expcted, "The bird is the word"
+
+    # Test Case 2
+
+    empty_sentence = ""
+
+    print("The size of the data is: {}\n".format(
+        sys.getsizeof(empty_sentence)))
+    print("The content of the data is: {}\n".format(empty_sentence))
+
+    encoded_data, tree = huffman_encoding(empty_sentence)
+
+    print(f"the encoded_data is {encoded_data}, the tree is {tree}")
+
+    # expcted, error message, "empty list", encoded_data is empty, tree is None
+
+    # Test Case 3
+    none_sentence = None
+
+    print("The size of the data is: {}\n".format(
+        sys.getsizeof(none_sentence)))
+    print("The content of the data is: {}\n".format(none_sentence))
+
+    encoded_data, tree = huffman_encoding(none_sentence)
+
+    print(f"the encoded_data is {encoded_data}, the tree is {tree}")
+
+    # expcted, error message, "empty list", encoded_data is None, tree is None

@@ -29,9 +29,12 @@ class BlockChain:
         self.end = None
 
     def add_block(self, data):
+        if data is None:
+            raise Exception("Data cannot be None")
         if self.end is None:
             self.end = Block(data, 0, 0)
             return
+
         temp = self.end
         hash = self.end.hash
         prev_index = self.end.index
@@ -50,11 +53,29 @@ class BlockChain:
     Index:{block_chain.index}
     Timestamp:{block_chain.timestamp}
     Data:{block_chain.data}
-    SHA256 Hash:{block_chain.hash} <-
+    SHA256 Hash:{block_chain.hash} <--
     Prev_hash:{block_chain.previous_hash}""")
         traverse(self.end)
 
 
+# Test Case 1: None data
+bc1 = BlockChain()
+try:
+    bc1.add_block(None)
+except Exception:
+    print("Data cannot be None")
+
+try:
+    bc1.add_block(None)
+except Exception:
+    print("Data cannot be None")
+
+# Test Case 2: Empty Blockchain
+bc2 = BlockChain()
+bc2.print_blockchain()
+# expcted result: error message says blockchain is empty
+
+# Test Case 3: Normal Case
 bc = BlockChain()
 bc.add_block('first')
 bc.add_block('second')

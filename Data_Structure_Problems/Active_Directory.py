@@ -20,22 +20,6 @@ class Group(object):
         return self.name
 
 
-parent = Group("parent")
-child = Group("child")
-sub_child = Group("subchild")
-
-sub_child_user = "sub_child_user"
-sub_child_user2 = 'sub_child_user2'
-sub_child.add_user(sub_child_user)
-sub_child.add_user(sub_child_user2)
-
-child_user = 'child_user'
-child.add_user(child_user)
-
-child.add_group(sub_child)
-parent.add_group(child)
-
-
 def is_user_in_group(user, group):
     """
     Return True if user is in the group, False otherwise.
@@ -53,4 +37,56 @@ def is_user_in_group(user, group):
     return False
 
 
-print(is_user_in_group(child_user, sub_child))
+parent = Group("parent")
+child = Group("child")
+sub_child = Group("subchild")
+
+# Test Case 1 None input
+sub_child_user_none = None
+sub_child.add_user(sub_child_user_none)
+print(f"None input: {is_user_in_group(sub_child_user_none, sub_child)}")
+# expected: True
+
+# Test Case 2 Empty Input
+
+sub_child_user_empty = ""
+sub_child.add_user(sub_child_user_empty)
+print(f"Empty input: {is_user_in_group(sub_child_user_empty, sub_child)}")
+# expected: True
+
+# Test Case 3
+
+sub_child_user = "sub_child_user"
+sub_child_user2 = 'sub_child_user2'
+sub_child.add_user(sub_child_user)
+sub_child.add_user(sub_child_user2)
+
+
+child_user = 'child_user'
+child.add_user(child_user)
+
+child.add_group(sub_child)
+parent.add_group(child)
+
+print(
+    f"Sub child user is in sub child: {is_user_in_group(sub_child_user, sub_child)}")
+# expected: True
+print(
+    f"Sub child user is in child: {is_user_in_group(sub_child_user, child)}")
+# expected: True
+print(
+    f"Sub child user is in parent: {is_user_in_group(sub_child_user, parent)}")
+# expected: True
+print(
+    f"Child user is not in sub child: {is_user_in_group(child_user, sub_child)}")
+# expected: False
+
+print(
+    f"random input is not in any group: {is_user_in_group('test', sub_child)}")
+# exptected: False
+print(
+    f"random input is not in any group: {is_user_in_group('test', child)}")
+# expected: False
+print(
+    f"random input is not in any group: {is_user_in_group('test', parent)}")
+# expected: False
