@@ -48,28 +48,41 @@ tree.get_root().get_right_child().set_right_child(Node("I"))
 tree.get_root().get_right_child().get_right_child().set_left_child(Node("H"))
 
 
+# def in_order(tree):
+#     visit_order = list()
+#     if tree is None:
+#         return []
+#     root = tree.get_root()
+
+#     if root.has_left_child():
+#         in_order_traverse(root.get_left_child(), visit_order)
+#     visit_order.append(root.get_value())
+#     if root.has_right_child():
+#         in_order_traverse(root.get_right_child(), visit_order)
+#     return visit_order
+
+
+# def in_order_traverse(node, visit_order):
+
+#     if node.has_left_child():
+#         in_order_traverse(node.get_left_child(), visit_order)
+#     visit_order.append(node.get_value())
+#     if node.has_right_child():
+#         in_order_traverse(node.get_right_child(), visit_order)
+#     return
+
 def in_order(tree):
     visit_order = list()
-    if tree is None:
-        return []
-    node = tree.get_root()
+    root = tree.get_root()
 
-    if node.has_left_child():
-        in_order_traverse(node.get_left_child(), visit_order)
-    visit_order.append(node.get_value())
-    if node.has_right_child():
-        in_order_traverse(node.get_right_child(), visit_order)
+    def traverse(node):
+        if node:
+            traverse(node.get_left_child())
+            visit_order.append(node.get_value())
+            traverse(node.get_right_child())
+
+    traverse(root)
     return visit_order
-
-
-def in_order_traverse(node, visit_order):
-
-    if node.has_left_child():
-        in_order_traverse(node.get_left_child(), visit_order)
-    visit_order.append(node.get_value())
-    if node.has_right_child():
-        in_order_traverse(node.get_right_child(), visit_order)
-    return
 
 
 print(in_order(tree))
