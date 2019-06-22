@@ -52,12 +52,10 @@ class Trie:
 
 MyTrie = Trie()
 wordList = [
-    "ant", "anthology", "antagonist", "antonym",
-    "fun", "function", "factory",
-    "trie", "trigger", "trigonometry", "tripod"
+    "ant", "anthology", "antonym",
 ]
 for word in wordList:
     MyTrie.insert(word)
 
-pre = MyTrie.find('t')
+pre = MyTrie.find('a')
 print(pre.suffixes())
