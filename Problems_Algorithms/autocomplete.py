@@ -5,6 +5,9 @@ class TrieNode:
         self.is_word = False
         self.children = {}
 
+    def insert(self, char):
+        self.children[char] = TrieNode()
+
     def suffixes(self, suffix=''):
         # Recursive function that collects the suffix for
         # all complete words below this point
@@ -36,7 +39,7 @@ class Trie:
         current_node = self.root
         for char in word:
             if char not in current_node.children:
-                current_node.children[char] = TrieNode()
+                current_node.insert(char)
             current_node = current_node.children[char]
         current_node.is_word = True
 
@@ -52,10 +55,18 @@ class Trie:
 
 MyTrie = Trie()
 wordList = [
-    "ant", "anthology", "antonym",
+    "ant", "anthology", "antagonist", "antonym",
+    "fun", "function", "factory",
+    "trie", "trigger", "trigonometry", "tripod"
 ]
 for word in wordList:
     MyTrie.insert(word)
 
 pre = MyTrie.find('a')
 print(pre.suffixes())
+
+pre2 = MyTrie.find('f')
+print(pre2.suffixes())
+
+pre3 = MyTrie.find('tri')
+print(pre3.suffixes())
