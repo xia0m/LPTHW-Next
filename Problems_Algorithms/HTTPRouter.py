@@ -18,7 +18,14 @@ class RouteTrie:
     def find(self, paths):
         # Starting at the root, navigate the Trie to find a match for this path
         # Return the handler for a match, or None for no match
-        pass
+        current_node = self.root
+        for path in paths:
+            if path == '':
+                return self.routeName
+            if path not in current_node.children:
+                return None
+            current_node = current_node.children[path]
+        return current_node.handler_name
 
 # A RouteTrieNode will be similar to our autocomplete TrieNode... with one additional element, a handler.
 
@@ -49,13 +56,18 @@ class Router:
         handler_path = self.split_path(handler_path)
         self.root.insert(handler_path, handler_name)
 
-    def lookup(self):
+    def lookup(self, paths):
         # lookup path (by parts) and return the associated handler
         # you can return None if it's not found or
         # return the "not found" handler if you added one
         # bonus points if a path works with and without a trailing slash
         # e.g. /about and /about/ both return the /about handler
-        pass
+        handler_path = self.split_path(paths)
+        handler_name = self.root.find(handler_path)
+        if handler_name is None:
+            return self.notFound.routeName
+        else:
+            return handler_name
 
     def split_path(self, path):
         # you need to split the path into parts for
@@ -71,14 +83,14 @@ class Router:
 # remove the 'not found handler' if you did not implement this
 router = Router("root handler", "not found handler")
 router.add_handler("/home/about", "about handler")  # add a route
-print(router.root.root.children['home'].children['about'].handler_name)
+# print(router.root.find(['home', 'about']))
 
-# # some lookups with the expected output
-# print(router.lookup("/"))  # should print 'root handler'
-# # should print 'not found handler' or None if you did not implement one
-# print(router.lookup("/home"))
-# print(router.lookup("/home/about"))  # should print 'about handler'
-# # should print 'about handler' or None if you did not handle trailing slashes
-# print(router.lookup("/home/about/"))
-# # should print 'not found handler' or None if you did not implement one
-# print(router.lookup("/home/about/me"))
+# some lookups with the expected output
+print(router.lookup("/"))  # should print 'root handler'
+# should print 'not found handler' or None if you did not implement one
+print(router.lookup("/home"))
+print(router.lookup("/home/about"))  # should print 'about handler'
+# should print 'about handler' or None if you did not handle trailing slashes
+print(router.lookup("/home/about/"))
+# should print 'not found handler' or None if you did not implement one
+print(router.lookup("/home/about/me"))
