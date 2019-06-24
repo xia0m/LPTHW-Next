@@ -7,6 +7,10 @@ def rearrange_digits(input_list):
     Returns:
        (int),(int): Two maximum sums
     """
+    if len(input_list) < 2:
+        raise Exception("at least two number is needed")
+    if input_list is None:
+        raise Exception("Input cannot be None")
 
     new_list = reverse_merge_sort(input_list)
 
@@ -63,6 +67,25 @@ def test_function(test_case):
         print("Fail")
 
 
+# Test Case 1 - Normal Input
+print("Test Case 1")
 test_function([[1, 2, 3, 4, 5], [542, 31]])
 test_case = [[4, 6, 2, 5, 9, 8], [964, 852]]
 test_function(test_case)
+
+# Test Case 2 - Empty list, Null input
+print("Test Case 2")
+try:
+    test_function([[1], [1, None]])
+except Exception:
+    print("At least two number is needed")
+
+try:
+    test_function([None, [1, None]])
+except Exception:
+    print("Input cannot be None")
+
+# Test Case 3 - only 2 number, list of same number
+print("Test Case 3")
+test_function([[1, 2], [2, 1]])
+test_function([[1, 1, 1, 1, 1, 1], [111, 111]])

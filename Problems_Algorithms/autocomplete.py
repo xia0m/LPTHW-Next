@@ -48,7 +48,7 @@ class Trie:
         current_node = self.root
         for char in prefix:
             if char not in current_node.children:
-                return None
+                return TrieNode()
             current_node = current_node.children[char]
         return current_node
 
@@ -62,11 +62,27 @@ wordList = [
 for word in wordList:
     MyTrie.insert(word)
 
+# Test Case 1 - Normal Input
+print("Test case 1")
 pre = MyTrie.find('a')
 print(pre.suffixes())
-
+# expcted ['nt', 'nthology', 'ntagonist', 'ntonym']
 pre2 = MyTrie.find('f')
 print(pre2.suffixes())
-
+# expected ['un', 'unction', 'actory']
 pre3 = MyTrie.find('tri')
 print(pre3.suffixes())
+# expected ['e', 'gger', 'gonometry', 'pod']
+
+# Test Case 2 - Empty Input
+print("Test Case 2")
+pre4 = MyTrie.find('')
+print(pre4.suffixes())
+# expected
+# ['ant', 'anthology', 'antagonist', 'antonym', 'fun', 'function', 'factory', 'trie', 'trigger', 'trigonometry', 'tripod']
+
+# Test Case 3 - large input
+print("Test Case 3")
+pre4 = MyTrie.find('eieisjiefsaerswefwefwef')
+print(pre4.suffixes())
+# expected []

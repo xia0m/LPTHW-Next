@@ -84,7 +84,7 @@ class Router:
 router = Router("root handler", "not found handler")
 router.add_handler("/home/about", "about handler")  # add a route
 # print(router.root.find(['home', 'about']))
-
+# Test Case 1 Normal input
 # some lookups with the expected output
 print(router.lookup("/"))  # should print 'root handler'
 # should print 'not found handler' or None if you did not implement one
@@ -94,3 +94,12 @@ print(router.lookup("/home/about"))  # should print 'about handler'
 print(router.lookup("/home/about/"))
 # should print 'not found handler' or None if you did not implement one
 print(router.lookup("/home/about/me"))
+
+# Test Case 2 - empty input
+print(router.lookup(""))
+# should print root handler
+
+# Test Case 3 - long path
+router.add_handler("/home/about/a/b/c/d/e", "random handler")
+print(router.lookup("/home/about/a/b/c/d/e"))
+# shoudl print random handler
