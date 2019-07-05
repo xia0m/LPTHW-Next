@@ -1,3 +1,6 @@
+import math
+
+
 class GraphEdge(object):
     def __init__(self, node, distance):
         self.node = node
@@ -59,3 +62,31 @@ graph.add_edge(node_t, node_c, 5)
 graph.add_edge(node_t, node_y, 5)
 graph.add_edge(node_y, node_i, 4)
 graph.add_edge(node_y, node_t, 5)
+
+
+def dijkstra(start_node, end_node):
+
+    visited = []
+    g_list = set()
+    queue = [start_node]
+    shortest_path = 0
+
+    while len(queue) > 0:
+        current_node = queue.pop(0)
+        visited.append(current_node)
+        for edge in current_node.edges:
+            if edge.node not in visited:
+                g_list.add((edge.node, edge.distance+shortest_path))
+
+        min_node = min(g_list, key=lambda x: x[1])
+        shortest_path = min_node[1]
+        if(min_node[0] == end_node):
+            break
+        g_list.remove(min_node)
+        queue.append(min_node[0])
+
+    return shortest_path
+
+
+print('Shortest Distance from {} to {} is {}'.format(
+    node_u.value, node_y.value, dijkstra(node_u, node_y)))
