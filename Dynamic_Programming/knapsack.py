@@ -7,7 +7,16 @@ def max_value(knapsack_max_weight, items):
     """
     Get the maximum value of the knapsack.
     """
-    pass
+    sorted_items = sorted(items)
+    weight_dict = dict()
+    for weight, _ in sorted_items:
+        weight_dict[weight] = 0
+    for weight, value in sorted_items:
+        if knapsack_max_weight - weight >= 0:
+            knapsack_max_weight -= weight
+            for w in weight_dict:
+                weight_dict[w] += value
+    return max(weight_dict.items(), key=lambda x: x[1])[1]
 
 
 tests = [
