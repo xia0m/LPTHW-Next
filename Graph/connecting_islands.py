@@ -1,9 +1,38 @@
 import heapq
-heap = list()
-heapq.heappush(heap, [1, 2, 1])
-heapq.heappush(heap, [2, 3, 4])
 
-print(heap)
+
+def create_graph(num_islands, bridge_config):
+
+    adjacency_list = [list() for _ in range(num_islands+1)]
+
+    for source, destination, cost in bridge_config:
+        adjacency_list[source].append((destination, cost))
+        adjacency_list[destination].append((source, cost))
+
+    return adjacency_list
+
+
+def minimum_cost(graph):
+    start_vertex = 1
+
+    visited = [False for _ in range(len(graph)+1)]
+
+    heap = [(0, start_vertex)]
+    total_cost = 0
+
+    while len(heap) > 0:
+        cost, current_vertex = heapq.heappop(heap)
+
+        if visited[current_vertex]:
+            continue
+
+        total_cost += cost
+
+        for neighbor, edge_cost in graph[current_vertex]:
+            heapq.heappush(heap, (edge_cost, neighbor))
+
+        visited[current_vertex] = True
+    return total_cost
 
 
 def get_minimum_cost_of_connecting(num_islands, bridge_config):
@@ -13,7 +42,8 @@ def get_minimum_cost_of_connecting(num_islands, bridge_config):
     return: cost (int) minimum cost of connecting all islands
     TODO complete this method to returh minimum cost of connecting all islands
     """
-    pass
+    graph = create_graph(num_islands, bridge_config)
+    return minimum_cost(graph)
 
 
 def test_function(test_case):
@@ -30,6 +60,7 @@ def test_function(test_case):
 
 num_islands = 4
 bridge_config = [[1, 2, 1], [2, 3, 4], [1, 4, 3], [4, 3, 2], [1, 3, 10]]
+heapq.heapify(bridge_config)
 solution = 6
 
 test_case = [num_islands, bridge_config, solution]
