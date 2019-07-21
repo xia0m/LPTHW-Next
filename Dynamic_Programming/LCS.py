@@ -2,17 +2,23 @@
 def lcs(string_a, string_b):
     lookup_matrix = [[0]*(len(string_a)+1) for _ in range(len(string_b)+1)]
 
-    for i in range(0, len(string_b)):
-        for j in range(i, len(string_a)):
-            if string_b[i] == string_a[j]:
-                max_value = max(
-                    lookup_matrix[i][j+1], lookup_matrix[i+1][j], lookup_matrix[i+1][j+1]+1)
-                lookup_matrix[i+1][j+1] = max_value
-                for rest_row in range(i, len(lookup_matrix)):
-                    for rest_column in range(j, len(lookup_matrix[rest_row])):
-                        lookup_matrix[rest_row][rest_column] = max_value
-                break
-
+    # for i in range(0, len(string_b)):
+    #     for j in range(i, len(string_a)):
+    #         if string_b[i] == string_a[j]:
+    #             max_value = max(
+    #                 lookup_matrix[i][j+1], lookup_matrix[i+1][j], lookup_matrix[i+1][j+1]+1)
+    #             lookup_matrix[i+1][j+1] = max_value
+    #             for rest_row in range(i, len(lookup_matrix)):
+    #                 for rest_column in range(j, len(lookup_matrix[rest_row])):
+    #                     lookup_matrix[rest_row][rest_column] = max_value
+    #             break
+    for i in range(len(string_b)):
+        for j in range(len(string_a)):
+            if string_a[j] == string_b[i]:
+                lookup_matrix[i+1][j+1] = lookup_matrix[i][j] + 1
+            else:
+                lookup_matrix[i+1][j +
+                                   1] = max(lookup_matrix[i+1][j], lookup_matrix[i][j+1])
     return lookup_matrix[-1][-1]
 
 
