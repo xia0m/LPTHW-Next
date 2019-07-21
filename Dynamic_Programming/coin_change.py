@@ -5,7 +5,26 @@ def coin_change(coins, amount):
 
     # TODO: Complete the coin_change function
     # This should return one value: the fewest coins needed to make up the given amount
-    pass
+    smallest = -1
+    temp = amount
+    for _ in range(len(coins)):
+        count = 0
+        temp = amount
+        while temp > 0:
+            if temp < coins[0]:
+                break
+            for coin in reversed(coins):
+                if temp >= coin:
+                    temp -= coin
+                    count += 1
+                    break
+
+        if temp == 0:
+            if smallest == -1:
+                smallest = count
+            if smallest > count:
+                smallest = count
+    return smallest
 
 
 def test_function(test_case):
