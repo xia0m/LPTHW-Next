@@ -2,29 +2,29 @@
 
 
 def coin_change(coins, amount):
+    # Create a memo that will storing the fewest coins with given amount
+    # that we have already calculated so that we do not have to do the
+    # calculation again.
+    memo = {}
 
-    # TODO: Complete the coin_change function
-    # This should return one value: the fewest coins needed to make up the given amount
-    smallest = -1
-    temp = amount
-    for _ in range(len(coins)):
-        count = 0
-        temp = amount
-        while temp > 0:
-            if temp < coins[0]:
-                break
-            for coin in reversed(coins):
-                if temp >= coin:
-                    temp -= coin
-                    count += 1
-                    break
+    def return_change(remaining):
+        # Base cases
+        if remaining < 0:
+            return float('inf')
+        if remaining == 0:
+            return 0
 
-        if temp == 0:
-            if smallest == -1:
-                smallest = count
-            if smallest > count:
-                smallest = count
-    return smallest
+        # Check if we have already calculated
+        if remaining not in memo:
+            # If not previously calculated, calculate it by calling return_change with the remaining amount
+            memo[remaining] = min(return_change(
+                remaining - c) + 1 for c in coins)
+        return memo[remaining]
+
+    res = return_change(amount)
+
+    # return -1 when no change found
+    return -1 if res == float('inf') else res
 
 
 def test_function(test_case):

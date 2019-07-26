@@ -65,27 +65,25 @@ graph.add_edge(node_y, node_t, 5)
 
 
 def dijkstra(start_node, end_node):
+    distance_dict = {node: math.inf for node in graph.nodes}
+    shortest_path_to_node = {}
 
-    visited = []
-    g_list = set()
-    queue = [start_node]
-    shortest_path = 0
+    distance_dict[start_node] = 0
+    while distance_dict:
+        # Pop the shorest path
+        current_node, node_distance = sorted(
+            distance_dict.items(), key=lambda x: x[1])[0]
+        print(current_node)
+        print(node_distance)
+        shortest_path_to_node[current_node] = distance_dict.pop(current_node)
 
-    while len(queue) > 0:
-        current_node = queue.pop(0)
-        visited.append(current_node)
         for edge in current_node.edges:
-            if edge.node not in visited:
-                g_list.add((edge.node, edge.distance+shortest_path))
+            if edge.node in distance_dict:
+                new_node_distance = node_distance + edge.distance
+                if distance_dict[edge.node] > new_node_distance:
+                    distance_dict[edge.node] = new_node_distance
 
-        min_node = min(g_list, key=lambda x: x[1])
-        shortest_path = min_node[1]
-        if(min_node[0] == end_node):
-            break
-        g_list.remove(min_node)
-        queue.append(min_node[0])
-
-    return shortest_path
+    return shortest_path_to_node[end_node]
 
 
 print('Shortest Distance from {} to {} is {}'.format(
